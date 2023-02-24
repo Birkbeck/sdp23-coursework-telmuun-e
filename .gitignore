@@ -189,3 +189,6 @@ gradle-app.setting
 
 .DS_Store
 
+# test file
+test.txt
+
