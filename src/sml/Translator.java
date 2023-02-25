@@ -81,6 +81,11 @@ public final class Translator {
                 String s = scan();
                 return new OutInstruction(label, Register.valueOf(s));
             }
+            case MultiplyInstruction.OP_CODE -> {
+                String r = scan();
+                String s = scan();
+                return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
 
             // TODO: add code for all other types of instructions
 
