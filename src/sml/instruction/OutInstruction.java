@@ -10,26 +10,24 @@ import sml.RegisterName;
  * @author
  */
 
-public class MoveInstruction extends Instruction {
+public class OutInstruction extends Instruction {
     private final RegisterName source;
-    private final int value;
 
-    public static final String OP_CODE = "mov";
+    public static final String OP_CODE = "out";
 
-    public MoveInstruction(String label, RegisterName source, int value) {
+    public OutInstruction(String label, RegisterName source) {
         super(label, OP_CODE);
         this.source = source;
-        this.value = value;
     }
 
     @Override
     public int execute(Machine m) {
-        m.getRegisters().set(source, value);
+        int value = m.getRegisters().get(source);
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
     @Override
     public String toString() {
-        return getLabelString() + getOpcode() + " " + source + " " + value;
+        return getLabelString() + getOpcode() + " " + source;
     }
 }

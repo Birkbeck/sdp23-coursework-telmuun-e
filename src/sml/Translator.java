@@ -73,9 +73,13 @@ public final class Translator {
                 return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
             case MoveInstruction.OP_CODE -> {
-                String r = scan();
+                String s = scan();
                 int val = Integer.parseInt(scan());
-                return new MoveInstruction(label, Register.valueOf(r), val);
+                return new MoveInstruction(label, Register.valueOf(s), val);
+            }
+            case OutInstruction.OP_CODE -> {
+                String s = scan();
+                return new OutInstruction(label, Register.valueOf(s));
             }
 
             // TODO: add code for all other types of instructions
