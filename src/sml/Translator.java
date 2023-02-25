@@ -96,6 +96,11 @@ public final class Translator {
                 String s = scan();
                 return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
+            case JnzInstruction.OP_CODE -> {
+                String s = scan();
+                String labelForStatement = scan();
+                return new JnzInstruction(label, Register.valueOf(s), labelForStatement);
+            }
 
             // TODO: Then, replace the switch by using the Reflection API
 

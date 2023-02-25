@@ -13,7 +13,6 @@ import sml.RegisterName;
 public class MoveInstruction extends Instruction {
     private final RegisterName source;
     private final int value;
-
     public static final String OP_CODE = "mov";
 
     public MoveInstruction(String label, RegisterName source, int value) {
