@@ -4,10 +4,14 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
+import java.util.Objects;
 
 /**
- * @author
+ * Represents a move instruction that extends an abstract instruction.
+ * It has a name of register of source and its value other than a label and an opcode.
+ * It stores integer value in register result.
+ *
+ * @author Telmuun Enkhbold
  */
 
 public class MoveInstruction extends Instruction {
@@ -31,4 +35,16 @@ public class MoveInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + source + " " + value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof MoveInstruction other) {
+            return Objects.equals(this.source, other.source)
+                    && this.OP_CODE.equals(other.OP_CODE);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(source, OP_CODE); }
 }

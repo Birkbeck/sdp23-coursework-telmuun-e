@@ -4,10 +4,15 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
+import java.util.Objects;
 
 /**
- * @author
+ * Represents a subtraction instruction that extends an abstract instruction.
+ * It has names of registers of result and source other than a label and an opcode.
+ * It subtracts the contents of register source from the contents of result
+ * and store the result in register result.
+ *
+ * @author Telmuun Enkhbold
  */
 
 public class SubtractInstruction extends Instruction {
@@ -34,4 +39,17 @@ public class SubtractInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + result + " " + source;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SubtractInstruction other) {
+            return Objects.equals(this.result, other.result)
+                    && Objects.equals(this.source, other.source)
+                    && this.OP_CODE.equals(other.OP_CODE);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(result, source, OP_CODE); }
 }

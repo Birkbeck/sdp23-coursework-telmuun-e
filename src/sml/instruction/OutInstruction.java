@@ -4,10 +4,14 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
+import java.util.Objects;
 
 /**
- * @author
+ * Represents an out instruction that extends an abstract instruction.
+ * It has a name of register of source other than a label and an opcode.
+ * It prints the contents of register source on the console.
+ *
+ * @author Telmuun Enkhbold
  */
 
 public class OutInstruction extends Instruction {
@@ -31,4 +35,16 @@ public class OutInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + source;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof OutInstruction other) {
+            return Objects.equals(this.source, other.source)
+                    && this.OP_CODE.equals(other.OP_CODE);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(source, OP_CODE); }
 }

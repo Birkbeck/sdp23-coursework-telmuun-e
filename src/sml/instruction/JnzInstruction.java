@@ -5,12 +5,15 @@ import sml.Machine;
 import sml.RegisterName;
 import sml.Labels;
 
-import java.util.List;
-
-// TODO: write a JavaDoc for the class
+import java.util.Objects;
 
 /**
- * @author
+ * Represents a jnz instruction that extends an abstract instruction.
+ * It has a name of register of source and a label for statement other than a label and an opcode.
+ * If the contents of register source is not zero,
+ * then make the labeled statement the next statement to execute.
+ *
+ * @author Telmuun Enkhbold
  */
 
 public class JnzInstruction extends Instruction {
@@ -39,4 +42,17 @@ public class JnzInstruction extends Instruction {
     public String toString() {
         return getLabelString() + getOpcode() + " " + source + " " + labelForStatement;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof JnzInstruction other) {
+            return Objects.equals(this.source, other.source)
+                    && this.labelForStatement.equals(other.labelForStatement)
+                    && this.OP_CODE.equals(other.OP_CODE);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(labelForStatement, source, OP_CODE); }
 }
