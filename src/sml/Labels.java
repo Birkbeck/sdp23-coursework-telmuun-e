@@ -1,5 +1,6 @@
 package sml;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -20,11 +21,14 @@ public final class Labels {
 	 * @param label the label
 	 * @param address the address the label refers to
 	 */
-	public void addLabel(String label, int address) {
+	public void addLabel(String label, int address) throws IOException {
 		Objects.requireNonNull(label);
-		if (!labels.containsKey(label)) {
-			labels.put(label, address);
+		if (labels.containsKey(label)) {
+			String errorMessage = "The following label is duplicated: " + label;
+			System.out.println(errorMessage);
+			throw new IOException(errorMessage);
 		}
+		labels.put(label, address);
 	}
 
 	/**
@@ -35,8 +39,9 @@ public final class Labels {
 	 */
 	public int getAddress(String label) {
 		// Where can NullPointerException be thrown here?
-		// NullPointerException can be thrown when label is null.
-		//  TODO     Add code to deal with non-existent labels.
+		// NullPointerException can be thrown here when label is null.
+		// Or, it can be thrown in the next steps when label does not exist.
+		Objects.requireNonNull(label);
 		return labels.get(label);
 	}
 
