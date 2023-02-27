@@ -7,21 +7,21 @@ import sml.RegisterName;
 import java.util.Objects;
 
 /**
- * Represents a subtraction instruction that extends an abstract instruction.
+ * Represents a divide instruction that extends an abstract instruction.
  * It has names of registers of result and source other than a label and an opcode.
- * It subtracts the contents of register source from the contents of result
+ * It divides the contents of register result by the contents of register source
  * and store the result in register result.
  *
  * @author Telmuun Enkhbold
  */
 
-public class SubtractInstruction extends Instruction {
+public class DivInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
-    public static final String OP_CODE = "sub";
+    public static final String OP_CODE = "div";
 
-    public SubtractInstruction(String label, RegisterName result, RegisterName source) {
+    public DivInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
         this.result = result;
         this.source = source;
@@ -31,7 +31,7 @@ public class SubtractInstruction extends Instruction {
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);
         int value2 = m.getRegisters().get(source);
-        m.getRegisters().set(result, value1 - value2);
+        m.getRegisters().set(result, value1 / value2);
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
 
@@ -42,7 +42,7 @@ public class SubtractInstruction extends Instruction {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof SubtractInstruction other) {
+        if (o instanceof DivInstruction other) {
             return Objects.equals(this.result, other.result)
                     && Objects.equals(this.source, other.source)
                     && this.OP_CODE.equals(other.OP_CODE);

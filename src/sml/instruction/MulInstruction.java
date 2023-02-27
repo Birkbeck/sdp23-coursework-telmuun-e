@@ -15,13 +15,13 @@ import java.util.Objects;
  * @author Telmuun Enkhbold
  */
 
-public class MultiplyInstruction extends Instruction {
+public class MulInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
     public static final String OP_CODE = "mul";
 
-    public MultiplyInstruction(String label, RegisterName result, RegisterName source) {
+    public MulInstruction(String label, RegisterName result, RegisterName source) {
         super(label, OP_CODE);
         this.result = result;
         this.source = source;
@@ -42,7 +42,7 @@ public class MultiplyInstruction extends Instruction {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof MultiplyInstruction other) {
+        if (o instanceof MulInstruction other) {
             return Objects.equals(this.result, other.result)
                     && Objects.equals(this.source, other.source)
                     && this.OP_CODE.equals(other.OP_CODE);
