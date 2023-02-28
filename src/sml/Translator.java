@@ -3,13 +3,11 @@ package sml;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static sml.Registers.Register;
 
 /**
  * This class ....
@@ -21,12 +19,14 @@ import static sml.Registers.Register;
 public final class Translator {
 
     private final String fileName; // source file of SML code
+    private final InstructionFactory factory;
 
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
 
     public Translator(String fileName) {
         this.fileName =  fileName;
+        this.factory = new InstructionFactory();
     }
 
     // translate the small program in the file into lab (the labels) and
@@ -67,32 +67,15 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        try {
-            String className = "sml.instruction." + opcode.substring(0, 1).toUpperCase() + opcode.substring(1) + "Instruction";
-            Constructor<?> constructor = Class.forName(className).getDeclaredConstructors()[0];
+        ArrayList<String> args = new ArrayList<>();
+        args.add(label);
+        String arg = "";
+        do {
+            arg = scan();
+            args.add(arg);
+        } while (arg != line);
 
-            int parameterCount = constructor.getParameterCount();
-            Object[] instructionArgs = new Object[parameterCount];
-            instructionArgs[0] = label;
-
-            Class<?>[] parameterTypes = constructor.getParameterTypes();
-            for (int i=1; i < parameterTypes.length; i++) {
-                String arg = scan();
-                if (parameterTypes[i] == RegisterName.class) {
-                    instructionArgs[i] = Register.valueOf(arg);
-                } else if (parameterTypes[i] == String.class) {
-                    instructionArgs[i] = arg;
-                } else if (parameterTypes[i] == int.class) {
-                    instructionArgs[i] = Integer.parseInt(arg);
-                }
-            }
-            return (Instruction) constructor.newInstance(instructionArgs);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException ex) {
-            System.out.println("Unknown instruction: " + opcode);
-        }
-        // TODO: Next, use dependency injection to allow this machine class
-
-        return null;
+        return factory.getInstruction(opcode, args);
     }
 
 
