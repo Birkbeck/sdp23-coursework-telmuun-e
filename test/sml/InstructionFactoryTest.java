@@ -7,19 +7,15 @@ import org.junit.jupiter.api.Test;
 import sml.instruction.AddInstruction;
 import sml.instruction.MovInstruction;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static sml.Registers.Register.*;
 
 class InstructionFactoryTest {
     private InstructionFactory factory;
 
     @BeforeEach
     void setUp() {
-        factory = new InstructionFactory();
+        factory = InstructionFactory.getInstance();
     }
 
     @AfterEach

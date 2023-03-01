@@ -26,7 +26,7 @@ public final class Translator {
 
     public Translator(String fileName) {
         this.fileName =  fileName;
-        this.factory = new InstructionFactory();
+        this.factory = InstructionFactory.getInstance();
     }
 
     // translate the small program in the file into lab (the labels) and
