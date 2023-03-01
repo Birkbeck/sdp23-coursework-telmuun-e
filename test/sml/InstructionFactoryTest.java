@@ -24,7 +24,7 @@ class InstructionFactoryTest {
     }
 
     @Test
-    void executeValid() {
+    void getInstructionValid() {
         String opcode = "add";
         ArrayList<String> args = new ArrayList<>(Arrays.asList(null, "EAX", "EBX"));
         Instruction addInstruction = factory.getInstruction(opcode, args);
@@ -32,7 +32,7 @@ class InstructionFactoryTest {
     }
 
     @Test
-    void executeValidTwo() {
+    void getInstructionValidTwo() {
         String opcode = "mov";
         ArrayList<String> args = new ArrayList<>(Arrays.asList(null, "EAX", "6"));
         Instruction addInstruction = factory.getInstruction(opcode, args);

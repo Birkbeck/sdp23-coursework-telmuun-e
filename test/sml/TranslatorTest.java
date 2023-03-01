@@ -24,7 +24,7 @@ class TranslatorTest {
     }
 
     @Test
-    void executeValid() throws IOException {
+    void getInstructionValid() throws IOException {
         Translator t = new Translator("resources/test_files/test_1.txt");
         t.readAndTranslate(machine.getLabels(), machine.getProgram());
         machine.execute();
